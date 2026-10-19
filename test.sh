@@ -30,7 +30,8 @@ echo "Running main.sh with a 1% threshold..."
 echo "Checking results..."
 
 #check if the archive was created in the backup folder
-if [ -f ./backup/*.tar.gz ]; then
+ARCHIVE_COUNT=$(ls ./backup/*.tar.gz 2>/dev/null | wc -l)
+if [ "$ARCHIVE_COUNT" -gt 0 ]; then
 	echo "TEST 1 PASSED: Archive created."
 else
 	echo "TEAT 1 FAILED: Archive not found"
@@ -57,7 +58,8 @@ echo "Running main.sh with an 80% threshold..."
 ./main.sh "$TEST_DIR" 80
 
 # Verify no archive was created and the file remains
-if [ ! -f ./backup/*.tar.gz ] && [ -f "$TEST_DIR/small_file.bin" ]; then
+ARCHIVE_COUNT=$(ls ./backup/*.tar.gz 2>/dev/null | wc -l)
+if [ "$ARCHIVE_COUNT" -eq 0 ] && [ -f "$TEST_DIR/small_file.bin" ]; then
     echo "TEST 2 PASSED: Script correctly did nothing."
 else
     echo "TEST 2 FAILED: Script acted when it shouldn't."
@@ -109,6 +111,8 @@ fi
 
 # TEST 5: Error Handling (No Arguments)
 echo -e "\nTEST 5: Error Handling"
+rm -rf "$TEST_DIR" ./backup
+mkdir -p "$TEST_DIR"
 
 # Run main.sh without arguments and capture output
 OUTPUT=$(./main.sh 2>&1)
