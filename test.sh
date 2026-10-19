@@ -119,5 +119,3 @@ if echo "$OUTPUT" | grep -q "needed"; then
 else
     echo "TEST 5 FAILED: No usage message."
 fi
-
-echo -e "\n=== ALL TESTS COMPLETED ==="
