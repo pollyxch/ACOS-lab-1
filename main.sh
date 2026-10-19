@@ -2,13 +2,13 @@
 
 #arguments check
 
-if ["$#" -lt 2]; then
+if [ "$#" -lt 2 ]; then
 	echo "needed: $0 <path to folder> <limit in percent>"
 	exit 1
 fi
 
 TARGET_DIR=$1
-LIMIT=$2
+THRESHOLD=$2
 BACKUP_DIR="./backup" #folder for backup, if none creating it
 
 mkdir -p "$BACKUP_DIR"
