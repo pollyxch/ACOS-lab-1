@@ -1,4 +1,4 @@
-#!/bin/bash
+/#!/bin/bash
 
 # TEST 1: Above threshold
 echo -e "\nTEST 1: Above threshold"
@@ -15,7 +15,6 @@ echo "Generate test data(0,5 GB). It takes some time, please wait.."
 #create 5 files with 100 Mb size
 for i in {1..5}; do
 	dd if=/dev/zero of="$TEST_DIR/file_$i.bin" bs=1M count=100 status=none
-#change modification time for sorting test
 done
 
 
@@ -118,7 +117,7 @@ mkdir -p "$TEST_DIR"
 OUTPUT=$(./main.sh 2>&1)
 
 # Verify if the output contains the expected usage message
-if echo "$OUTPUT" | grep -q "needed"; then
+if [ "$(echo "$OUTPUT" | grep -q "needed"; echo $?)" -eq 0 ]; then
     echo "TEST 5 PASSED: Correct usage message displayed."
 else
     echo "TEST 5 FAILED: No usage message."
